@@ -93,6 +93,6 @@ ENV/
 private.py
 listings.db
 acmart-master/
-data/
+data/*
 docs/
 helpful/
