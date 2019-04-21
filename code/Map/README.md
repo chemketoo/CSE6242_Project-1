@@ -9,5 +9,5 @@ Geo Layer:
 Zoom in:
 ![alt text](map_zoom_in.PNG "zoom in")
 
-Zoom in:
+Zoom out:
 ![alt text](map_zoom_out.PNG "zoom out")
