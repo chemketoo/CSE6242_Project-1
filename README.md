@@ -1,16 +1,16 @@
 # CSE6242_Project: House Price Prediction in Los Angeles
 
-DESCRIPTION
+## DESCRIPTION
 This project aims to predict house price in Los Angeles and help house-buyers buy a perfect house in Los Angeles. We collected house-intrinsic data such as building year, square feet, number of rooms from Kaggle and environmental data including population, traffic, school, hospital etc. from online resources. We performed house value prediction using various machine learning models including Linear Regression, Ridge and Lasso Regression, Support Vector Machine, Random Forest and Ensemble learning. We demonstrated that incorporating environmental information improved the prediction performance. House information and prediction results are visualized in the form of an interactive map.
 
 Installation and execution are detailed below. Complete information can be found in GitHub at https://github.com/cse6242-team110-spring2019. For demo purpose, we only include necessary files and codes.
 
-INSTALLATION
+## INSTALLATION
 All the analysis is performed using python unless otherwise specified. The code package consists of code of 1. Web scraping: getting additional data related to house value from external websites other than zillow, such as environmental information, geo-economic information, school information and so on. 2. Data preprocessing and feature engineering. 3. Variable selection and different model comparison. 4. Visualization in the form of interactive map. 
 
 We recommend using python 3.7+ for python scripts. The following packages are required for running modeling on ml.py, matplotlib, panda, numpy, and sklearn.
 
-EXECUTION
+## EXECUTION
 Just need to run the python code for all four stages one by one/
 1. Web scraping. In scraper folderMore detailed information is in datascraping_readme.txt
  (1.1) rev_geo.py: using property longitude and latitude to find address and zip code (zip code from zillow kaggle competition is incorrect)
