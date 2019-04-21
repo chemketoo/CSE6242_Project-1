@@ -22,7 +22,7 @@ var baseLayers = {
 	};
 
 // read data from csv
-url = './data/geo_2016.csv'
+url = './data/visualization.csv'
 omnivore.csv(url).addTo(houses);
 
 // function read_from_csv(url){

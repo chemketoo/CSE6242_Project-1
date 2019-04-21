@@ -15,12 +15,20 @@
 	<!-- Also, we need to tell the mobile browser to disable unwanted scaling of the page and set it to its actual size by placing the following line in the head section or our HTML page: -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
+	<!-- clustering -->
+	<link rel="stylesheet" href="Leaflet.markercluster-1.4.1/dist/MarkerCluster.css" />
+	<link rel="stylesheet" href="Leaflet.markercluster-1.4.1/dist/MarkerCluster.Default.css" />
+	<script src="Leaflet.markercluster-1.4.1/dist/leaflet.markercluster-src.js"></script>
+
+	<!-- jqury -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
  </head>
 
  <body>
  	<!-- universal format parser for Leaflet & Mapbox.js -->
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
  	<div id="map_1"></div>
- 	<script src="los_angeles.js"></script>
+ 	<script src="los_angeles_old.js"></script>
  </body>
  </html>

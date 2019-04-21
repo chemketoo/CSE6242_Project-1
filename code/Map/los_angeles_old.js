@@ -21,91 +21,50 @@ var baseLayers = {
 		"Streets": streets
 	};
 
+//  cluster
+var markers = new L.MarkerClusterGroup();
+var markersList = [];
+
 // read data from csv
-url = './data/geo_2016.csv'
-omnivore.csv(url).addTo(houses);
+url = './data/visualization.csv'
 
-// function read_from_csv(url){
-//  ///this one way of declaring array in javascript
-// 	d3.csv(url, function(csvdata) {
-// 		geo_data = csvdata.map(function (d) {
-// 	            return {
-// 	                parcelid: d.parcelid,
-// 	                latitude: +d.latitude,
-// 	                longitude: +d.longitude}
-// 	            })
-
-
-// 	// console.log(geo_data)
-// 		load_points(geo_data, cities, 10)
-// 	})
-// 	// console.log(window.geo_data)
-// }
+function read_from_csv(url){
+ ///this one way of declaring array in javascript
+	d3.csv(url, function(csvdata) {
+		geo_data = csvdata.map(function (d) {
+	            return {
+	                parcelid: d.parcelid,
+	                latitude: +d.lat,
+	                longitude: +d.lng}
+	            })
 
 
-// read_from_csv(url)
-// // console.log(geo_data)
+	// console.log(geo_data)
+		load_points(geo_data, houses, 100)
+	})
+	// console.log(window.geo_data)
+}
 
+function load_points(data, layer, limit){
+    L.marker([34.0537767, -118.2428987]).bindPopup('<b>Los Angeles City Hall!</b><br>I am a popup.').addTo(layer);
+    total_points = data.length
+    // console.log(total_points)
 
+    for(var i = 0; i<total_points;i++){
+        if (i > limit){
+            break;
+        }
+        latitude = data[i].latitude;
+        longitude = data[i].longitude;
+        // L.marker([latitude, longitude]).addTo(layer)
+        var m = new L.Marker([latitude, longitude]);
+        markersList.push(m);
+        markers.addLayer(m);
 
+        // console.log(i)
+        }
 
-
-
-// // marker
-// // L.marker([34.0537767, -118.2428987]).bindPopup('<b>Los Angeles City Hall!</b><br>I am a popup.').addTo(cities);
-
-// function load_points(data, layer, limit){
-// 	L.marker([34.0537767, -118.2428987]).bindPopup('<b>Los Angeles City Hall!</b><br>I am a popup.').addTo(layer);
-// 	total_points = data.length
-// 	// console.log(total_points)
-
-// 	for(var i = 0; i<total_points;i++){
-// 		if (i > limit){
-// 			break;
-// 		}
-// 		latitude = data[i].latitude,
-//         longitude = data[i].longitude,
-// 		L.marker([latitude, longitude]).addTo(layer)
-// 		// console.log(i)
-// 		}
-
-// }
-
-
-
-var overlays = {
-	"Houses": houses
-};
-
-L.control.layers(baseLayers, overlays).addTo(mymap);
-
-
-
-// add circle
-var circle = L.circle([34.0537767, -118.2428987], {
-    color: 'red',
-    fillColor: '#f03',
-    fillOpacity: 0.5,
-    radius: 500
-}).addTo(mymap);
-
-// add a polygon
-var polygon = L.polygon([
-    [34.052010, -118.241739],
-    [34.049485, -118.246846],
-    [34.044793, -118.243495]
-]).addTo(mymap);
-
-// pop up
-// marker.bindPopup("<b>Los Angeles City Hall!</b><br>I am a popup.").openPopup();
-circle.bindPopup("I am a circle.");
-polygon.bindPopup("I am a polygon.");
-
-// layers
-// var popup = L.popup()
-//     .setLatLng([34.044793,  -118.246846])
-//     .setContent("I am a standalone popup.")
-//     .openOn(mymap);
+}
 
 // Dealing with events
 var popup = L.popup();
@@ -116,8 +75,6 @@ function onMapClick(e) {
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
 }
-
-mymap.on('click', onMapClick);
 
 
 // Here we specify 16 as the maximum zoom when setting the map view automatically. As soon as the user agrees to share its location and it’s detected by the browser, the map will set the view to it. Now we have a working fullscreen mobile map! But what if we need to do something after the geolocation completed? Here’s what the locationfound and locationerror events are for. Let’s for example add a marker in the detected location, showing accuracy in a popup, by adding an event listener to locationfound event before the locateAndSetView call:
@@ -133,6 +90,55 @@ function onLocationFound(e) {
 function onLocationError(e) {
     alert(e.message);
 }
+
+$.getJSON("data/visualization.geojson",function(data){
+    // add GeoJSON layer to the map once the file is loaded
+    var geoJsonLayer = L.geoJson(data ,{
+        onEachFeature: function(feature, featureLayer) {
+            featureLayer.bindPopup('Address:' + feature.properties.address + '<br>' + 
+                                    'Price: $' + feature.properties.taxvaluedollarcnt + '<br>' +
+                                    'Predicted Price: $' + feature.properties.pred_tax_value + '<br>' + 
+                                    'Aircondition: ' + feature.properties.airconditioningtypeid + '<br>' +
+                                    'Bathroom: ' + feature.properties.bathroomcnt + '<br>' +
+                                    'Bedroom: ' + feature.properties.bedroomcnt + '<br>');
+        }
+    });
+    markers.addLayer(geoJsonLayer);
+    mymap.addLayer(markers);
+    mymap.fitBounds(geoJsonLayer.getBounds());
+});
+
+
+// markers.on('click', function (a) {
+//     alert('marker ' + a.layer);
+// });
+// read_from_csv(url)
+// mymap.addLayer(markers);
+// // console.log(geo_data)
+
+
+
+
+
+
+var overlays = {
+	"Houses": houses
+};
+
+L.control.layers(baseLayers, overlays).addTo(mymap);
+
+
+
+// layers
+// var popup = L.popup()
+//     .setLatLng([34.044793,  -118.246846])
+//     .setContent("I am a standalone popup.")
+//     .openOn(mymap);
+
+
+// mymap.on('click', onMapClick);
+
+
 
 mymap.on('locationfound', onLocationFound)
 	.on('locationerror', onLocationError);
