@@ -1,14 +1,10 @@
+# Filter missing values, redundant, interdependent and artrichary features from kaggle. 
 a=read.csv("~/Downloads/CSE6242_Project/data/Zillow/properties_2016_filter.csv")
 b=read.csv("train_2016_v2.csv")
-c=read.csv("2016_properties_60000.csv")
-d=read.csv("2016_properties_60000v2.csv")
-train_id=sample(nrow(d),round(nrow(d)*0.8))
-d_train=d[train_id,]
-d_test=d[-train_id,]
-write.table(d_train,"2016_properties_60000v2_train.csv",sep=",",quote=F,row.names=F,na="")
-write.table(d_test,"2016_properties_60000v2_test.csv",sep=",",quote=F,row.names=F,na="")
 a1=a[a[,1]%in%b[,1],]
 write.table(a1,"2016_properties_60000.csv",sep=",",quote=F,row.names=F,na="")
+c=read.csv("2016_properties_60000.csv")
+
 nacount= vector(length=57)
 for(i in 1:57) {
 	nacount[i]=length(a1[is.na(a1[,i+1]),1])
@@ -100,7 +96,15 @@ c=c[,-17]
 colnames(c)[17:23]=c("heating1","heating2","heating3","quality1","quality2","quality3","quality4")
 write.table(c,"2016_properties_60000v2.csv",sep=",",quote=F,row.names=F,na="")
 
+# Generate training and testing data
+d=read.csv("2016_properties_60000v2.csv")
+train_id=sample(nrow(d),round(nrow(d)*0.8))
+d_train=d[train_id,]
+d_test=d[-train_id,]
+write.table(d_train,"2016_properties_60000v2_train.csv",sep=",",quote=F,row.names=F,na="")
+write.table(d_test,"2016_properties_60000v2_test.csv",sep=",",quote=F,row.names=F,na="")
 
+# Incorporate and transform environmental information
 env=read.csv("all_environmental1.csv")
 train=read.csv("2016_properties_60000v2_train.csv")
 test=read.csv("2016_properties_60000v2_test.csv")
@@ -142,6 +146,7 @@ test3=test3[,2:ncol(test3)]
 write.table(train3,"2016_properties_60000v3_train.csv",sep=",",quote=F,row.names=F,na="")
 write.table(test3,"2016_properties_60000v3_test.csv",sep=",",quote=F,row.names=F,na="")
 
+# Visualization of prediction results.
 #error = rbind(c(2.35,2.35,2.5,3.87,2.78),c(2.01,2.01,2.42,4.25,2.36))
 error = rbind(c(2.19,2.35,2.5,3.87,2.78,2.47,2.23),c(2.01,2.01,2.42,4.25,2.36,2.33,2.04))
 
