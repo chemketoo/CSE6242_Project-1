@@ -39,6 +39,7 @@ https://drive.google.com/open?id=1VmO0_R_UM5USD9TtXkazqRG07cV44xKH
 The folder contains all the original Kaggle data, environmental data and intermediate data required for testing the code
 
 3. Modeling
+
 (3.1) ml.py applying linear regression, ridge, lesso, SVM, random forest using zillow or expanded data
 
 (3.2)
