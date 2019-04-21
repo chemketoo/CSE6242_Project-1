@@ -98,8 +98,8 @@ var polygon = L.polygon([
 
 // pop up
 // marker.bindPopup("<b>Los Angeles City Hall!</b><br>I am a popup.").openPopup();
-circle.bindPopup("Region of interest: circle.");
-polygon.bindPopup("Region of interest: polygon.");
+circle.bindPopup("I am a circle.");
+polygon.bindPopup("I am a polygon.");
 
 // layers
 // var popup = L.popup()
