@@ -11,9 +11,9 @@ All the analysis is performed using python unless otherwise specified. The code 
 We recommend using python 3.7+ for python scripts. The following packages are required for running modeling on ml.py, matplotlib, panda, numpy, and sklearn.
 
 ## EXECUTION
-Just need to run the python code for all four stages one by one/
+Just need to run the python code for all four stages one by one.
 1. Web scraping. In scraper folderMore detailed information is in datascraping_readme.txt
- (1.1) rev_geo.py: using property longitude and latitude to find address and zip code (zip code from zillow kaggle competition is incorrect)
+(1.1) rev_geo.py: using property longitude and latitude to find address and zip code (zip code from zillow kaggle competition is incorrect)
 (1.2). Commute.py: zip code avg commute time
 (1.3). Crimeindex.py: zip level crime rate 
 (1.4). Health_ca_filter.py : zip level hospital 
